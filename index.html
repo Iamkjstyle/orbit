@@ -231,17 +231,10 @@ textarea:focus-visible{outline:2px solid var(--reactor);border-color:var(--react
 .badge.on h3{color:var(--ink)}
 .badge.on .prog i{background:var(--gold)}
 
-/* auth */
-.auth{display:grid;gap:12px;padding:20px;max-width:420px;width:100%;margin:20px auto 0}
-.auth label{font:600 13px var(--f-display);letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
-.auth input{width:100%;padding:12px;background:rgba(7,11,23,.75);color:var(--ink);border:1px solid var(--line);border-radius:3px;font:500 17px var(--f-body)}
-.auth input:focus-visible{outline:2px solid var(--reactor);border-color:var(--reactor)}
-.auth-msg{min-height:1.4em;color:var(--alert);font-size:15px}
-
 /* nav + toast */
 .nav{position:fixed;left:0;right:0;bottom:0;z-index:5;padding:8px 16px calc(8px + env(safe-area-inset-bottom,0px));background:rgba(7,11,23,.93);border-top:1px solid var(--line-soft);backdrop-filter:blur(8px)}
-.nav-in{max-width:880px;margin:0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
-.nav button{display:grid;justify-items:center;gap:2px;padding:6px 0;border-radius:3px;color:var(--ink-faint);font:600 11px var(--f-display);letter-spacing:.14em;text-transform:uppercase;min-height:48px}
+.nav-in{max-width:880px;margin:0 auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+.nav button{display:grid;justify-items:center;gap:2px;padding:6px 0;border-radius:3px;color:var(--ink-faint);font:600 11px var(--f-display);letter-spacing:.08em;text-transform:uppercase;min-height:48px}
 .nav button svg{width:22px;height:22px}
 .nav button[aria-current="page"]{color:var(--reactor);background:rgba(95,224,255,.08)}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:6;width:max-content;max-width:calc(100% - 32px);display:flex;gap:14px;align-items:center;padding:10px 16px;background:var(--panel-hi);border:1px solid var(--gold);border-radius:3px;box-shadow:0 8px 30px rgba(0,0,0,.5);font-size:16px}
@@ -250,6 +243,39 @@ textarea:focus-visible{outline:2px solid var(--reactor);border-color:var(--react
   .slot[data-ts="now"]{animation:none}
   .reactor .arc,.xp-bar i,.bar i{transition:none}
 }
+
+/* scoring + rewards */
+.slot.routine{border-left-color:var(--line-soft);background:rgba(13,21,39,.6)}
+.slot.routine .slot-title{color:var(--ink-dim)}
+.slot.routine.done .slot-title{color:var(--ink)}
+.slot.missed{background:linear-gradient(90deg,rgba(255,107,112,.07),transparent 60%),var(--panel)}
+.nextrw{font:600 14px var(--f-display);letter-spacing:.04em;color:var(--gold)}
+.nextrw.ready{color:var(--reactor)}
+.btn.danger{border-color:var(--alert);color:var(--alert)}
+.rewards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}
+.reward{display:grid;gap:8px;align-content:start;padding:16px;background:var(--panel);border:1px solid var(--line-soft);border-radius:4px;min-width:0}
+.reward h3{font:700 20px/1.2 var(--f-display);overflow-wrap:anywhere}
+.rw-top{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.rw-kind{font:600 11px var(--f-display);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint)}
+.rw-state{font:600 11px var(--f-display);letter-spacing:.14em;text-transform:uppercase;padding:2px 8px;border:1px solid var(--line);color:var(--ink-dim);border-radius:2px}
+.reward .prog{height:6px;background:var(--line-soft)}
+.reward .prog i{display:block;height:100%;background:var(--violet);transition:width .5s}
+.rw-text{display:grid;gap:2px}
+.rw-text b{font:700 18px var(--f-display)}
+.rw-text span,.rw-meta{font:400 12px var(--f-mono);color:var(--ink-faint)}
+.reward.ready{border-color:var(--reactor);box-shadow:0 0 24px -8px var(--reactor-glow)}
+.reward.ready .rw-state{color:var(--space);background:var(--reactor);border-color:var(--reactor)}
+.reward.ready .prog i{background:var(--reactor)}
+.reward.claimed{border-color:var(--gold-dim)}
+.reward.claimed .rw-state{color:var(--gold);border-color:var(--gold-dim)}
+.reward.claimed .prog i{background:var(--gold)}
+.rw-actions{justify-content:flex-start;margin-top:4px}
+.field{display:grid;gap:10px}
+.field label{font:600 13px var(--f-display);letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.field input,.field select{width:100%;padding:12px;background:rgba(7,11,23,.75);color:var(--ink);border:1px solid var(--line);border-radius:3px;font:500 17px var(--f-body)}
+.field input:focus-visible,.field select:focus-visible{outline:2px solid var(--reactor);border-color:var(--reactor)}
+.auth{padding:20px;max-width:420px;width:100%;margin:20px auto 0}
+.auth-msg{min-height:1.4em;margin:0;color:var(--alert);font-size:15px}
 </style>
 </head>
 <body>
@@ -263,6 +289,7 @@ textarea:focus-visible{outline:2px solid var(--reactor);border-color:var(--react
     <button type="button" data-act="tab" data-tab="today"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>Today</button>
     <button type="button" data-act="tab" data-tab="week"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20V10M12 20V4M19 20v-7"/></svg>Week</button>
     <button type="button" data-act="tab" data-tab="month"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Month</button>
+    <button type="button" data-act="tab" data-tab="rewards"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v8a1 1 0 001 1h12a1 1 0 001-1v-8M12 8H8.5a2.5 2.5 0 110-5C11 3 12 8 12 8zM12 8h3.5a2.5 2.5 0 100-5C13 3 12 8 12 8z"/></svg>Rewards</button>
     <button type="button" data-act="tab" data-tab="badges"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>Badges</button>
   </div>
 </nav>
@@ -271,18 +298,18 @@ textarea:focus-visible{outline:2px solid var(--reactor);border-color:var(--react
 <script>
 (() => {
 'use strict';
-
 /* ---------- Firebase config: paste your own values here ---------- */
 const FIREBASE_CONFIG = {
-  apiKey: 'AIzaSyA4fL5rmzeJPsMQPqHdfIqeCxlu5_2z3no',
-  authDomain: 'orbit-mission-control-663ca.firebaseapp.com',
-  projectId: 'orbit-mission-control-663ca',
-  storageBucket: 'orbit-mission-control-663ca.firebasestorage.app',
-  messagingSenderId: '889912563876',
-  appId: '1:889912563876:web:489de93dc115d6c20cee31'
+  apiKey: 'PASTE_API_KEY',
+  authDomain: 'PASTE_AUTH_DOMAIN',
+  projectId: 'PASTE_PROJECT_ID',
+  storageBucket: 'PASTE_STORAGE_BUCKET',
+  messagingSenderId: 'PASTE_SENDER_ID',
+  appId: 'PASTE_APP_ID'
 };
 const FB_VER = '10.14.1';
 const cfgOk = () => !!FIREBASE_CONFIG.apiKey && !/PASTE/.test(FIREBASE_CONFIG.apiKey) && !/PASTE/.test(FIREBASE_CONFIG.projectId);
+
 
 /* ---------- helpers ---------- */
 const $ = (s, r = document) => r.querySelector(s);
@@ -290,9 +317,11 @@ const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp
 const pad = n => String(n).padStart(2, '0');
 const keyOf = d => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
 const parseKey = k => { const p = k.split('-').map(Number); return new Date(p[0], p[1] - 1, p[2]); };
-const todayKey = () => keyOf(new Date());
+const clock = () => (window.__MC_NOW ? new Date(window.__MC_NOW) : new Date());
+const todayKey = () => keyOf(clock());
+const nowMin = () => { const n = clock(); return n.getHours() * 60 + n.getMinutes(); };
 const mm = m => pad(Math.floor(m / 60)) + ':' + pad(m % 60);
-const fmt = n => Math.round(n).toLocaleString('en-IN');
+const fmt = n => Math.round(n).toLocaleString('en-US');
 const fmtDur = m => m >= 60 ? (Math.floor(m / 60) + 'h' + (m % 60 ? ' ' + (m % 60) + 'm' : '')) : (m + 'm');
 const hrs = m => (m / 60).toFixed(1);
 const WD = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -300,102 +329,105 @@ const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','
 const MONFULL = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const dayDiff = (a, b) => Math.round((parseKey(b) - parseKey(a)) / 864e5);
 const clone = o => JSON.parse(JSON.stringify(o));
+const addDays = (key, n) => { const d = parseKey(key); d.setDate(d.getDate() + n); return keyOf(d); };
 
-/* ---------- schedule rules ---------- */
-const STREAK_PCT = 70;
+/* ---------- rules ---------- */
+const STREAK_PCT = 70;      /* focus completion needed to keep a streak alive */
+const XP_PER_HOUR = 25;     /* only focus blocks earn XP */
+const PENALTY_RATE = 0.5;   /* a missed focus block costs half of what it would have earned */
+const PERFECT_BONUS = 50;
+const GRACE_UNTIL = 600;    /* yesterday stays editable until 10:00 */
 const PHASES = {
-  1: { name: 'Ration Rush', range: '10–12 tarikh', blurb: 'Ration duty + client hunting' },
-  2: { name: 'Skill Sprint', range: '13–24 tarikh', blurb: 'Ration subah, phir skill upgrade' },
-  3: { name: 'Free Orbit', range: '25 se 9 tarikh', blurb: 'Subah free, baaki skill upgrade' }
+  1: { name: 'Duty Phase', range: '10th to 12th', blurb: 'Ration duty with two client hunting blocks' },
+  2: { name: 'Skill Sprint', range: '13th to 24th', blurb: 'Ration duty in the morning, skill upgrade in the afternoon' },
+  3: { name: 'Open Phase', range: '25th to 9th', blurb: 'Open mornings, skill upgrade in the afternoon' }
 };
 const phaseOf = d => { const n = d.getDate(); if (n >= 10 && n <= 12) return 1; if (n >= 13 && n <= 24) return 2; return 3; };
 const S = (id, title, hint, start, end, kind, extra) => Object.assign({ id, title, hint, start, end, kind }, extra || {});
 const minsOf = s => s.credit != null ? s.credit : (s.end - s.start);
-const xpOf = s => s.kind === 'focus' ? Math.round(minsOf(s) / 60 * 25) : 10;
+const xpOf = s => s.kind === 'focus' ? Math.round(minsOf(s) / 60 * XP_PER_HOUR) : 0;
+const penOf = s => (s.kind === 'focus' && !s.bonus) ? Math.round(xpOf(s) * PENALTY_RATE) : 0;
 
 function slotsFor(d) {
   const p = phaseOf(d), sun = d.getDay() === 0;
   let L = [];
-  L.push(S('wake', 'Wake up', '6:30 pe uthna', 390, 390, 'duty', { point: true }));
-  L.push(S('yoga', 'Yoga', 'Body ko charge karo', 390, 450, 'duty'));
-  if (p === 1 || p === 2) L.push(S('ration_am', 'Ration duty', 'Subah ka shift', 480, 720, 'duty'));
+  L.push(S('wake', 'Wake up', 'Start the day on schedule', 390, 390, 'routine', { point: true }));
+  L.push(S('yoga', 'Yoga', 'Mobility and breathwork', 390, 450, 'routine'));
+  if (p === 1 || p === 2) L.push(S('ration_am', 'Ration duty', 'Morning shift', 480, 720, 'routine'));
   if (p === 3) {
-    L.push(S('free_client', 'Client hunting', 'Free block, man ho to', 480, 720, 'focus', { cat: 'client', credit: 120, bonus: true }));
-    L.push(S('free_read', 'Book reading', 'Free block, man ho to', 480, 720, 'focus', { cat: 'reading', credit: 60, bonus: true }));
+    L.push(S('free_client', 'Client hunting', 'Open block, optional bonus', 480, 720, 'focus', { cat: 'client', credit: 120, bonus: true }));
+    L.push(S('free_read', 'Book reading', 'Open block, optional bonus', 480, 720, 'focus', { cat: 'reading', credit: 60, bonus: true }));
   }
-  L.push(S('client_1', 'Client hunting', 'Leads dhundo, outreach bhejo', 750, 870, 'focus', { cat: 'client' }));
+  L.push(S('client_1', 'Client hunting', 'Prospecting and outreach', 750, 870, 'focus', { cat: 'client' }));
   if (p === 1) {
-    L.push(S('ration_pm', 'Ration duty', 'Shaam ka shift', 900, 1080, 'duty'));
-    L.push(S('client_2', 'Client hunting', 'Doosra round', 1080, 1260, 'focus', { cat: 'client' }));
+    L.push(S('ration_pm', 'Ration duty', 'Evening shift', 900, 1080, 'routine'));
+    L.push(S('client_2', 'Client hunting', 'Follow-ups and new outreach', 1080, 1260, 'focus', { cat: 'client' }));
   } else {
-    L.push(S('lunch', 'Lunch', 'Thoda reset', 870, 900, 'duty'));
-    L.push(S('skill', 'Skill upgrade', 'Deep work, phone door', 900, 1260, 'focus', { cat: 'skill' }));
+    L.push(S('lunch', 'Lunch', 'Short break', 870, 900, 'routine'));
+    L.push(S('skill', 'Skill upgrade', 'Deep work with no distractions', 900, 1260, 'focus', { cat: 'skill' }));
   }
-  L.push(S('dinner', 'Dinner', 'Aaram se khao', 1260, 1290, 'duty'));
-  L.push(S('read', 'Book reading', 'Din ka last focus block', 1290, 1350, 'focus', { cat: 'reading' }));
-  L.push(S('family', 'Family & Aastha', 'Poora dhyan unpe', 1350, 1410, 'duty'));
-  L.push(S('sleep', 'Sleep', 'Lights out, kal 6:30 uthna hai', 1410, 1410, 'duty', { point: true }));
+  L.push(S('dinner', 'Dinner', 'Unhurried meal', 1260, 1290, 'routine'));
+  L.push(S('read', 'Book reading', 'Daily reading block', 1290, 1350, 'focus', { cat: 'reading' }));
+  L.push(S('family', 'Family and Aastha', 'Time with family and Aastha', 1350, 1410, 'routine'));
+  L.push(S('sleep', 'Sleep', 'Lights out for a 06:30 wake-up', 1410, 1410, 'routine', { point: true }));
   if (sun) {
     L = L.filter(s => s.id !== 'client_2' && s.id !== 'dinner');
     L.forEach(s => {
-      if (s.id === 'skill') { s.end = 1080; s.hint = 'Shaam 6 baje tak, phir dost'; }
-      if (s.id === 'read') { s.start = 1320; s.hint = 'Dosto ke baad chhota block'; }
+      if (s.id === 'skill') { s.end = 1080; s.hint = 'Wraps up at 18:00'; }
+      if (s.id === 'read') { s.start = 1320; s.hint = 'Short block after friends'; }
     });
-    L.push(S('friends', 'Dosto ke saath', 'Sunday shaam, dinner bhi unke saath', 1080, 1320, 'duty'));
+    L.push(S('friends', 'Evening with friends', 'Sunday, 18:00 to 22:00', 1080, 1320, 'routine'));
   }
   return L.sort((a, b) => a.start - b.start);
 }
 
-function calc(key, done) {
-  const slots = slotsFor(parseKey(key));
-  const req = slots.filter(s => !s.bonus);
-  let xp = 0, reqDone = 0, doneCount = 0;
-  const focus = { client: 0, skill: 0, reading: 0 };
-  slots.forEach(s => {
-    if (done[s.id]) {
-      xp += xpOf(s); doneCount++;
-      if (!s.bonus) reqDone++;
-      if (s.kind === 'focus') focus[s.cat] += minsOf(s);
-    }
-  });
-  const pct = req.length ? Math.round(reqDone / req.length * 100) : 0;
-  if (pct === 100) xp += 50;
-  return { pct, xp, focus, doneCount, total: slots.length, reqTotal: req.length, reqDone };
-}
-
 const levelOf = xp => { let L = 1; while (xp >= 100 * (L + 1) * L) L++; return L; };
 
+const DEFAULT_REWARDS = [
+  { id: 'party', name: 'Evening out with friends', kind: 'streak', goal: 7, repeat: true },
+  { id: 'tawang', name: 'Tawang trip', kind: 'xp', goal: 6000, repeat: false },
+  { id: 'grand', name: 'Two-month trip', kind: 'streak', goal: 60, repeat: false }
+];
+const defaultCfg = () => ({ start: todayKey(), rewards: clone(DEFAULT_REWARDS), claimed: {} });
+
 const BADGES = [
-  { id: 'first', name: 'Pehla Kadam', desc: 'Koi bhi ek din ka slot complete karo', goal: 1, val: a => a.active, unit: 'din' },
-  { id: 's3', name: '3-Din Streak', desc: 'Lagatar 3 din 70% se upar', goal: 3, val: a => a.best, unit: 'din' },
-  { id: 's7', name: '7-Din Streak', desc: 'Lagatar 7 din 70% se upar', goal: 7, val: a => a.best, unit: 'din' },
-  { id: 's21', name: 'Habit Locked', desc: 'Lagatar 21 din 70% se upar', goal: 21, val: a => a.best, unit: 'din' },
-  { id: 'perfect', name: 'Perfect Day', desc: 'Ek din ke saare slots complete', goal: 1, val: a => a.perfect, unit: 'din' },
-  { id: 'deep6', name: 'Deep Work 6h', desc: 'Ek din mein 6 ghante focus', goal: 6, val: a => a.maxFocus / 60, unit: 'h' },
-  { id: 'hunter', name: 'Client Hunter', desc: 'Total 10 ghante client hunting', goal: 10, val: a => a.focus.client / 60, unit: 'h' },
-  { id: 'reader', name: 'Page Turner', desc: '7 alag din book reading', goal: 7, val: a => a.readDays, unit: 'din' },
-  { id: 'early', name: 'Early Bird', desc: '7 din 6:30 pe uthna', goal: 7, val: a => a.wakeDays, unit: 'din' }
+  { id: 'first', name: 'First Mission', desc: 'Complete any focus block', goal: 1, val: a => a.active, unit: 'days' },
+  { id: 's3', name: 'Three-Day Streak', desc: 'Three days in a row at 70% or more', goal: 3, val: a => a.best, unit: 'days' },
+  { id: 's7', name: 'Seven-Day Streak', desc: 'Seven days in a row at 70% or more', goal: 7, val: a => a.best, unit: 'days' },
+  { id: 's21', name: 'Habit Locked', desc: 'Twenty-one days in a row at 70% or more', goal: 21, val: a => a.best, unit: 'days' },
+  { id: 's60', name: 'Orbit Complete', desc: 'Sixty days in a row at 70% or more', goal: 60, val: a => a.best, unit: 'days' },
+  { id: 'perfect', name: 'Perfect Day', desc: 'Complete every focus block in one day', goal: 1, val: a => a.perfect, unit: 'days' },
+  { id: 'deep6', name: 'Deep Work 6h', desc: 'Log six hours of focus in one day', goal: 6, val: a => a.maxFocus / 60, unit: 'h' },
+  { id: 'hunter', name: 'Client Hunter', desc: 'Log ten hours of client hunting', goal: 10, val: a => a.focus.client / 60, unit: 'h' },
+  { id: 'reader', name: 'Page Turner', desc: 'Read on seven different days', goal: 7, val: a => a.readDays, unit: 'days' },
+  { id: 'early', name: 'Early Riser', desc: 'Log seven 06:30 wake-ups', goal: 7, val: a => a.wakeDays, unit: 'days' }
 ];
 
-/* test hook: pure logic only */
-if (window.__MC_TEST) {
-  window.__MC = { phaseOf, slotsFor, calc, levelOf, xpOf, keyOf, parseKey };
-  return;
-}
-
 /* ---------- state ---------- */
-const EMPTY = Object.freeze({ done: Object.freeze({}), journal: '', pct: 0, xp: 0, focus: Object.freeze({ client: 0, skill: 0, reading: 0 }), doneCount: 0 });
-const nowD = new Date();
-const state = {
-  tab: 'today', view: todayKey(), days: {}, composing: null, focusNote: false,
-  mode: 'loading', auth: 'none', month: { y: nowD.getFullYear(), m: nowD.getMonth() }, saved: ''
-};
-let cloud = null, toastFn = null, toastT = null;
-const jt = {}, inflight = {}, chain = {};
+const nowD = clock();
 const CACHE_KEY = 'orbit-mission-days-v1';
+const CFG_KEY = 'orbit-mission-cfg-v1';
+function loadLocal(k, fb) { try { const r = localStorage.getItem(k); return r ? JSON.parse(r) : fb; } catch (e) { return fb; } }
+function normCfg(c) {
+  const base = c && typeof c === 'object' ? c : {};
+  return {
+    start: typeof base.start === 'string' ? base.start : todayKey(),
+    rewards: Array.isArray(base.rewards) ? base.rewards : clone(DEFAULT_REWARDS),
+    claimed: base.claimed && typeof base.claimed === 'object' ? base.claimed : {}
+  };
+}
+const state = {
+  tab: 'today', view: todayKey(), days: {}, cfg: normCfg(null), composing: null, focusNote: false,
+  mode: 'loading', auth: 'none', month: { y: nowD.getFullYear(), m: nowD.getMonth() }, saved: '',
+  rwForm: null, confirmDel: null
+};
+let cloud = null, toastFn = null, toastT = null, aggCache = null, startMemo = null, lastSig = '';
+const jt = {}, inflight = {}, chain = {};
+let cfgBusy = 0;
+const invalidate = () => { aggCache = null; startMemo = null; };
 
-function loadLocal() { try { const r = localStorage.getItem(CACHE_KEY); return r ? JSON.parse(r) : {}; } catch (e) { return {}; } }
 function cacheLocal() { try { localStorage.setItem(CACHE_KEY, JSON.stringify(state.days)); } catch (e) { /* ignore */ } }
+function cacheCfg() { try { localStorage.setItem(CFG_KEY, JSON.stringify(state.cfg)); } catch (e) { /* ignore */ } }
 
 function ensureDay(key) {
   let d = state.days[key];
@@ -404,63 +436,142 @@ function ensureDay(key) {
   if (typeof d.journal !== 'string') d.journal = '';
   return d;
 }
-const dayData = key => state.days[key] ? ensureDay(key) : EMPTY;
 
-let lastErrAt = 0;
-function onWriteError() {
-  if (Date.now() - lastErrAt > 10000) { lastErrAt = Date.now(); toast('Save nahi hua. Net check karke dobara tick karo.'); }
+/* ---------- scoring ---------- */
+function startKey() {
+  if (startMemo) return startMemo;
+  const tk = todayKey(), keys = Object.keys(state.days).sort();
+  let s = state.cfg.start || tk;
+  if (keys[0] && keys[0] < s) s = keys[0];
+  if (s > tk) s = tk;
+  return (startMemo = s);
+}
+const editable = key => { const tk = todayKey(); return key === tk || (key === addDays(tk, -1) && nowMin() < GRACE_UNTIL); };
+const slotEnded = (key, s) => { const tk = todayKey(); return key < tk || (key === tk && nowMin() >= s.end); };
+
+function dayStat(key) {
+  const dd = state.days[key], done = (dd && dd.done) || {};
+  const slots = slotsFor(parseKey(key)), first = startKey();
+  let earned = 0, penalty = 0, doneCount = 0, reqMin = 0, doneMin = 0, fTotal = 0, fDone = 0;
+  const focus = { client: 0, skill: 0, reading: 0 };
+  slots.forEach(s => {
+    const isF = s.kind === 'focus';
+    if (isF && !s.bonus) { reqMin += minsOf(s); fTotal++; }
+    if (done[s.id]) {
+      doneCount++;
+      if (isF) { earned += xpOf(s); focus[s.cat] += minsOf(s); if (!s.bonus) { doneMin += minsOf(s); fDone++; } }
+    } else if (isF && !s.bonus && key > first && slotEnded(key, s)) {
+      penalty += penOf(s);
+    }
+  });
+  const pct = reqMin ? Math.round(doneMin / reqMin * 100) : 0;
+  const bonus = pct === 100 ? PERFECT_BONUS : 0;
+  return { pct, earned: earned + bonus, penalty, net: earned + bonus - penalty, focus, doneCount, total: slots.length, fTotal, fDone };
 }
 
+function agg() {
+  if (aggCache) return aggCache;
+  const tk = todayKey(), start = startKey();
+  let t = 0, peak = 0, run = 0, perfect = 0, active = 0, maxFocus = 0, readDays = 0, wakeDays = 0, penaltyTotal = 0, earnedTotal = 0;
+  const runs = [], focus = { client: 0, skill: 0, reading: 0 };
+  const w = parseKey(start);
+  for (let g = 0; g < 5000; g++) {
+    const k = keyOf(w); if (k > tk) break;
+    const st = dayStat(k), dd = state.days[k], dn = (dd && dd.done) || {};
+    t = Math.max(0, t + st.net); peak = Math.max(peak, t);
+    earnedTotal += st.earned; penaltyTotal += st.penalty;
+    const fm = st.focus.client + st.focus.skill + st.focus.reading;
+    if (st.pct >= 100) perfect++;
+    if (fm > 0) active++;
+    maxFocus = Math.max(maxFocus, fm);
+    focus.client += st.focus.client; focus.skill += st.focus.skill; focus.reading += st.focus.reading;
+    if (dn.read || dn.free_read) readDays++;
+    if (dn.wake) wakeDays++;
+    if (st.pct >= STREAK_PCT) run++;
+    else if (k !== tk) { if (run > 0) runs.push(run); run = 0; }
+    w.setDate(w.getDate() + 1);
+  }
+  const cur = run;
+  if (run > 0) runs.push(run);
+  const best = runs.reduce((m, x) => Math.max(m, x), 0);
+  return (aggCache = { xp: Math.round(t), peak: Math.round(peak), cur, best, runs, perfect, active, maxFocus, readDays, wakeDays, focus, penaltyTotal, earnedTotal, level: levelOf(t) });
+}
+const unlocked = a => BADGES.filter(b => b.val(a) >= b.goal).map(b => b.id);
+
+function earnedOf(r, a) {
+  const g = Math.max(1, +r.goal || 1);
+  if (r.kind === 'xp') return a.peak >= g ? 1 : 0;
+  if (r.repeat) return a.runs.reduce((s, x) => s + Math.floor(x / g), 0);
+  return a.best >= g ? 1 : 0;
+}
+function rewardProg(r, a) {
+  const g = Math.max(1, +r.goal || 1), earned = earnedOf(r, a), claimed = state.cfg.claimed[r.id] || 0, avail = Math.max(0, earned - claimed);
+  let v, text, sub;
+  if (r.kind === 'xp') { v = Math.min(a.peak, g); text = fmt(v) + ' / ' + fmt(g) + ' XP'; sub = 'Penalties can slow this down, but progress already earned is kept.'; }
+  else if (r.repeat) { v = a.cur % g; if (a.cur > 0 && v === 0 && avail > 0) v = g; text = v + ' / ' + g + ' days'; sub = 'Current streak: ' + a.cur + ' days. Repeats every ' + g + ' days.'; }
+  else { v = Math.min(a.best, g); text = v + ' / ' + g + ' days'; sub = 'Current streak: ' + a.cur + ' days. Best: ' + a.best + ' days.'; }
+  return { v, goal: g, frac: Math.min(1, v / g), text, sub, earned, claimed, avail };
+}
+
+/* test hook: pure logic only */
+if (window.__MC_TEST) {
+  window.__MC = { state, dayStat, agg, slotsFor, phaseOf, levelOf, earnedOf, rewardProg, xpOf, penOf, editable, invalidate, keyOf, parseKey, normCfg, defaultCfg };
+  return;
+}
+
+/* ---------- persistence ---------- */
+let lastErrAt = 0;
+function onWriteError() {
+  if (Date.now() - lastErrAt > 10000) { lastErrAt = Date.now(); toast('Could not save to the cloud. Check your connection. Your data is safe on this device.'); }
+}
+function queueWrite(tag, fn) {
+  inflight[tag] = (inflight[tag] || 0) + 1;
+  const prev = chain[tag] || Promise.resolve();
+  chain[tag] = prev.then(fn).catch(onWriteError).then(() => { inflight[tag]--; });
+}
 function persist(key) {
-  const d = ensureDay(key);
-  const st = calc(key, d.done);
-  const doc = { date: key, phase: phaseOf(parseKey(key)), done: d.done, journal: d.journal || '', pct: st.pct, xp: st.xp, focus: st.focus, doneCount: st.doneCount, total: st.total };
+  const d = ensureDay(key), st = dayStat(key);
+  const doc = { date: key, phase: phaseOf(parseKey(key)), done: d.done, journal: d.journal || '', pct: st.pct, xp: st.earned, focus: st.focus, doneCount: st.doneCount, total: st.total };
   state.days[key] = doc;
   cacheLocal();
   if (!cloud) return;
   const payload = clone(doc);
-  inflight[key] = (inflight[key] || 0) + 1;
-  const prev = chain[key] || Promise.resolve();
-  chain[key] = prev.then(() => cloud.set(key, payload)).catch(onWriteError).then(() => { inflight[key]--; });
+  queueWrite(key, () => cloud.setDay(key, payload));
+}
+function saveCfg() {
+  cacheCfg();
+  if (!cloud) return;
+  const payload = clone(state.cfg);
+  cfgBusy++;
+  queueWrite('__cfg', () => cloud.setCfg(payload));
+  chain.__cfg = chain.__cfg.then(() => { cfgBusy--; });
 }
 
-/* ---------- aggregates ---------- */
-function agg() {
-  const keys = Object.keys(state.days).sort();
-  let xp = 0, perfect = 0, active = 0, maxFocus = 0, readDays = 0, wakeDays = 0;
-  const focus = { client: 0, skill: 0, reading: 0 };
-  const q = new Set();
-  keys.forEach(k => {
-    const d = state.days[k], f = d.focus || {}, dn = d.done || {};
-    xp += d.xp || 0;
-    if ((d.pct || 0) >= 100) perfect++;
-    if ((d.doneCount || 0) > 0) active++;
-    focus.client += f.client || 0; focus.skill += f.skill || 0; focus.reading += f.reading || 0;
-    maxFocus = Math.max(maxFocus, (f.client || 0) + (f.skill || 0) + (f.reading || 0));
-    if (dn.read || dn.free_read) readDays++;
-    if (dn.wake) wakeDays++;
-    if ((d.pct || 0) >= STREAK_PCT) q.add(k);
-  });
-  let best = 0, run = 0, prev = null;
-  Array.from(q).sort().forEach(k => { run = (prev && dayDiff(prev, k) === 1) ? run + 1 : 1; best = Math.max(best, run); prev = k; });
-  let cur = 0; const c = parseKey(todayKey());
-  if (!q.has(keyOf(c))) c.setDate(c.getDate() - 1);
-  while (q.has(keyOf(c))) { cur++; c.setDate(c.getDate() - 1); }
-  return { xp, perfect, active, maxFocus, readDays, wakeDays, focus, best, cur, level: levelOf(xp) };
+/* cloud callbacks (called by the sync layer) */
+function onDaysSnapshot(map) {
+  Object.keys(state.days).forEach(k => { if (jt[k] || inflight[k]) map[k] = state.days[k]; });
+  state.days = map; invalidate(); cacheLocal(); setMode('cloud');
 }
-const unlocked = a => BADGES.filter(b => b.val(a) >= b.goal).map(b => b.id);
+function onCfgSnapshot(exists, data) {
+  if (cfgBusy > 0 || inflight.__cfg) return;
+  if (exists) { state.cfg = normCfg(data); cacheCfg(); }
+  else { state.cfg = normCfg(state.cfg); saveCfg(); }
+  invalidate(); render();
+}
 
 /* ---------- commit / announce ---------- */
 function commit(key, mut) {
-  const before = agg(), ub = unlocked(before);
+  invalidate();
+  const before = agg(), ub = unlocked(before), eb = state.cfg.rewards.map(r => earnedOf(r, before));
   mut(ensureDay(key));
   persist(key);
-  const after = agg(), ua = unlocked(after);
-  const msgs = [];
-  if (after.level > before.level) msgs.push('MARK ' + after.level + ' unlock ho gaya');
+  invalidate();
+  const after = agg(), ua = unlocked(after), msgs = [];
+  if (after.level > before.level) msgs.push('Rank up: MARK ' + after.level);
+  state.cfg.rewards.forEach((r, i) => { if (earnedOf(r, after) > eb[i]) msgs.push('Reward unlocked: ' + r.name); });
   BADGES.forEach(b => { if (ua.indexOf(b.id) >= 0 && ub.indexOf(b.id) < 0) msgs.push('Badge: ' + b.name); });
   render();
-  if (msgs.length) toast(msgs.join('  ·  '));
+  if (msgs.length) toast(msgs.join('  |  '));
 }
 
 function toast(msg, act) {
@@ -469,30 +580,34 @@ function toast(msg, act) {
   toastFn = act ? act.fn : null;
   t.hidden = false;
   clearTimeout(toastT);
-  toastT = setTimeout(() => { t.hidden = true; toastFn = null; }, act ? 7000 : 4500);
+  toastT = setTimeout(() => { t.hidden = true; toastFn = null; }, act ? 7000 : 5500);
 }
 
 /* ---------- views ---------- */
 const I = {
   check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
   lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="1"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>',
-  flame: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 4-4 6-4 11a6 6 0 0012 0c0-3-1.500-4.500-3-6 0 2.500-1 3.500-2 3.500C16 7 15 4 12 2z"/></svg>',
+  flame: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 4-4 6-4 11a6 6 0 0012 0c0-3-1.5-4.5-3-6 0 2.5-1 3.5-2 3.5C16 7 15 4 12 2z"/></svg>',
   bolt: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L5 14h6l-1 8 8-12h-6z"/></svg>',
   left: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>',
   right: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>',
-  star: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.500l2.900 6 6.600.9-4.800 4.600 1.200 6.600L12 17.400l-5.900 3.200 1.200-6.600L2.500 9.400l6.600-.9z"/></svg>'
+  star: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.6L12 17.4l-5.9 3.2 1.2-6.6L2.5 9.4l6.6-.9z"/></svg>',
+  gift: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v8a1 1 0 001 1h12a1 1 0 001-1v-8M12 8H8.500a2.500 2.500 0 110-5C11 3 12 8 12 8zM12 8h3.500a2.500 2.500 0 100-5C13 3 12 8 12 8z"/></svg>'
 };
+const hooks = { authHTML: () => '', doAuth: null, signOut: null };
 
 function headHTML() {
   const a = agg(), L = a.level;
   const cur = 100 * L * (L - 1), nxt = 100 * (L + 1) * L;
   const pct = Math.max(0, Math.min(100, Math.round((a.xp - cur) / (nxt - cur) * 100)));
-  const modeTxt = state.mode === 'cloud' ? 'Cloud sync ON' : state.mode === 'local' ? (cfgOk() ? 'Offline ya error: sirf is device pe save' : 'Sirf is device pe save · Firebase keys paste karo') : 'Sync ho raha hai…';
+  const modeTxt = state.mode === 'cloud' ? 'Cloud sync on'
+    : state.mode === 'local' ? (state.auth === 'none' && typeof cfgOk === 'function' && !cfgOk() ? 'Saved on this device only. Firebase is not configured.' : 'Offline. Saved on this device and will sync when you reconnect.')
+    : 'Syncing...';
   return '<div class="head-top"><div><p class="eyebrow">Orbit</p><h1>Mission Control</h1></div>' +
     '<div class="mark"><small>Rank</small><b>MARK ' + L + '</b></div></div>' +
-    '<div><div class="xp-bar" role="progressbar" aria-label="XP to next Mark" aria-valuenow="' + pct + '" aria-valuemin="0" aria-valuemax="100"><i style="width:' + pct + '%"></i></div>' +
-    '<p class="xp-txt"><span>' + fmt(a.xp) + ' XP</span><span>MARK ' + (L + 1) + ' ke liye ' + fmt(nxt - a.xp) + ' XP</span></p></div>' +
-    '<p class="sync" data-m="' + state.mode + '">' + modeTxt + (state.auth === 'in' ? ' · <button type="button" class="link" data-act="signout">Sign out</button>' : '') + '</p>';
+    '<div><div class="xp-bar" role="progressbar" aria-label="Progress to next rank" aria-valuenow="' + pct + '" aria-valuemin="0" aria-valuemax="100"><i style="width:' + pct + '%"></i></div>' +
+    '<p class="xp-txt"><span>' + fmt(a.xp) + ' XP</span><span>' + fmt(nxt - a.xp) + ' XP to MARK ' + (L + 1) + '</span></p></div>' +
+    '<p class="sync" data-m="' + state.mode + '">' + esc(modeTxt) + (state.auth === 'in' ? ' &middot; <button type="button" class="link" data-act="signout">Sign out</button>' : '') + '</p>';
 }
 
 function reactorSVG(pct) {
@@ -502,7 +617,7 @@ function reactorSVG(pct) {
     const a = (i / 60) * 2 * Math.PI - Math.PI / 2, r1 = i % 5 === 0 ? 87 : 91, r2 = 96;
     ticks += '<line x1="' + (100 + r1 * Math.cos(a)).toFixed(1) + '" y1="' + (100 + r1 * Math.sin(a)).toFixed(1) + '" x2="' + (100 + r2 * Math.cos(a)).toFixed(1) + '" y2="' + (100 + r2 * Math.sin(a)).toFixed(1) + '" class="' + (i < lit ? 'tk on' : 'tk') + '"/>';
   }
-  return '<svg viewBox="0 0 200 200" class="reactor" role="img" aria-label="Daily power ' + pct + ' percent">' +
+  return '<svg viewBox="0 0 200 200" class="reactor" role="img" aria-label="Focus completion ' + pct + ' percent">' +
     '<defs><radialGradient id="core" cx="50%" cy="50%" r="50%"><stop offset="0" style="stop-color:var(--ink)"/><stop offset=".5" style="stop-color:var(--reactor);stop-opacity:.5"/><stop offset="1" style="stop-color:var(--reactor);stop-opacity:0"/></radialGradient></defs>' +
     ticks +
     '<circle cx="100" cy="100" r="76" class="trk"/>' +
@@ -510,150 +625,199 @@ function reactorSVG(pct) {
     '<circle cx="100" cy="100" r="62" class="inner"/>' +
     '<circle cx="100" cy="100" r="58" fill="url(#core)" opacity="' + (0.2 + pct / 160).toFixed(2) + '"/>' +
     '<text x="100" y="106" class="pct" text-anchor="middle">' + pct + '<tspan class="pc">%</tspan></text>' +
-    '<text x="100" y="128" class="cap" text-anchor="middle">POWER</text></svg>';
-}
-
-function authHTML() {
-  return '<form class="panel auth" id="auth-form" novalidate><h2 class="h2">Sign in</h2><p class="hint">Ek baar login karo. iPhone aur Mac dono pe wahi email aur password se same data milega.</p>' +
-    '<label for="auth-email">Email</label><input id="auth-email" type="email" inputmode="email" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false">' +
-    '<label for="auth-pass">Password</label><input id="auth-pass" type="password" autocomplete="current-password">' +
-    '<p class="auth-msg" id="auth-msg" role="alert"></p>' +
-    '<div class="row"><button type="button" class="btn" id="btn-signup" data-act="signup">Create account</button><button type="button" class="btn primary" id="btn-signin" data-act="signin">Sign in</button></div></form>';
+    '<text x="100" y="128" class="cap" text-anchor="middle">FOCUS</text></svg>';
 }
 
 function nextText() {
   const key = state.view, tk = todayKey();
-  if (key > tk) return 'Ye din abhi aaya nahi. Plan dekh lo.';
-  if (key < tk) return 'Purana din. Chhoote slots yahan tick kar sakte ho.';
-  const slots = slotsFor(parseKey(key)), done = dayData(key).done, n = new Date(), nm = n.getHours() * 60 + n.getMinutes();
-  if (slots.filter(s => !s.bonus).every(s => done[s.id])) return 'Saare slots complete. Armor full power.';
+  if (key > tk) return 'This day has not started yet. Preview only.';
+  if (key < tk) return editable(key) ? 'Yesterday. Edits close at ' + mm(GRACE_UNTIL) + '.' : 'Past day. This record is closed.';
+  const slots = slotsFor(parseKey(key)), done = (state.days[key] && state.days[key].done) || {}, nm = nowMin();
+  const req = slots.filter(s => s.kind === 'focus' && !s.bonus);
+  if (req.every(s => done[s.id])) return 'All focus blocks complete. Excellent work.';
   const cur = slots.filter(s => !s.point && s.start <= nm && nm < s.end);
-  const pick = cur.find(s => !s.bonus && !done[s.id]) || cur.find(s => !s.bonus) || cur[0];
-  if (pick) return 'Abhi: ' + pick.title + ' · ' + mm(pick.end) + ' tak';
+  const pick = cur.find(s => s.kind === 'focus' && !s.bonus && !done[s.id]) || cur.find(s => !s.bonus) || cur[0];
+  if (pick) return 'Now: ' + pick.title + ' until ' + mm(pick.end);
   const nx = slots.find(s => s.start > nm);
-  if (nx) return 'Agla: ' + nx.title + ' · ' + mm(nx.start) + ' (' + fmtDur(nx.start - nm) + ' mein)';
-  return 'Din ka schedule khatam. Time pe so jao.';
+  if (nx) return 'Next: ' + nx.title + ' at ' + mm(nx.start) + ' (in ' + fmtDur(nx.start - nm) + ')';
+  return 'Schedule complete. Get a full night of rest.';
+}
+
+function nextRewardHTML(a) {
+  const list = state.cfg.rewards.map(r => ({ r, p: rewardProg(r, a) }));
+  const ready = list.find(x => x.p.avail > 0);
+  if (ready) return '<p class="nextrw ready">Reward ready: ' + esc(ready.r.name) + ' <button type="button" class="link" data-act="tab" data-tab="rewards">Claim</button></p>';
+  const open = list.filter(x => x.p.earned === 0 || x.r.repeat).sort((x, y) => y.p.frac - x.p.frac)[0];
+  if (!open) return '';
+  return '<p class="nextrw">Next reward: ' + esc(open.r.name) + ' &middot; ' + esc(open.p.text) + '</p>';
 }
 
 const CHIPS = {
-  client: ['Cold emails bheje', 'LinkedIn outreach', 'Proposal bheja', 'Leads list banayi'],
-  skill: ['Course lecture dekha', 'Code practice', 'Project pe kaam', 'Notes banaye'],
-  reading: ['Chapter padha', 'Notes likhe', 'Ek idea samjha']
+  client: ['Sent cold emails', 'LinkedIn outreach', 'Sent a proposal', 'Built a lead list'],
+  skill: ['Finished a lecture', 'Coding practice', 'Worked on a project', 'Wrote study notes'],
+  reading: ['Finished a chapter', 'Wrote reading notes', 'Learned one new idea']
 };
 const PH = {
-  client: 'Jaise: 15 outreach messages bheje, 2 replies aaye',
-  skill: 'Jaise: Python ke 2 modules khatam kiye, project mein bug fix kiya',
-  reading: 'Jaise: 25 pages padhe, ek idea notebook mein likha'
+  client: 'Example: sent 15 outreach messages, received 2 replies',
+  skill: 'Example: finished two course modules and fixed a bug in my project',
+  reading: 'Example: read 25 pages and noted one key idea'
 };
 
-function slotHTML(s, day, future) {
-  const dn = day.done[s.id], xp = xpOf(s);
+function tickState(key, s, isDone) {
+  const tk = todayKey();
+  if (!editable(key)) return { ok: false, why: key > tk ? 'Not started' : 'Day closed' };
+  if (!isDone && key === tk && nowMin() < s.start) return { ok: false, why: 'Opens at ' + mm(s.start) };
+  return { ok: true };
+}
+
+function slotHTML(s, key, day) {
+  const dn = day.done[s.id], isF = s.kind === 'focus', xp = xpOf(s);
+  const missed = isF && !s.bonus && !dn && key > startKey() && slotEnded(key, s);
+  const ts = tickState(key, s, !!dn);
   const time = s.point ? '<b>' + mm(s.start) + '</b>' : '<b>' + mm(s.start) + '</b><span>' + mm(s.end) + '</span>';
   let meta = '';
   if (!s.point && !s.bonus) meta += '<span>' + fmtDur(s.end - s.start) + '</span>';
-  if (s.bonus) meta += '<span class="tag">Bonus · free block</span>';
-  meta += '<span class="tag xp">+' + xp + ' XP</span>';
+  if (isF) meta += '<span class="tag xp">+' + xp + ' XP</span>'; else meta += '<span class="tag">Routine</span>';
+  if (s.bonus) meta += '<span class="tag">Optional bonus</span>';
+  if (missed) meta += '<span class="tag miss">-' + penOf(s) + ' XP missed</span>';
+  if (!ts.ok && !dn && ts.why.indexOf('Opens') === 0) meta += '<span class="tag">' + esc(ts.why) + '</span>';
   let body = '';
   if (dn) {
     const at = dn.at ? new Date(dn.at) : null;
     if (dn.note) body += '<p class="note">' + esc(dn.note) + '</p>';
-    body += '<p class="done-meta">' + (at && !isNaN(at) ? 'Done ' + pad(at.getHours()) + ':' + pad(at.getMinutes()) : 'Done') +
-      '<button type="button" class="link" data-act="edit" data-slot="' + s.id + '">' + (dn.note ? 'Note badlo' : 'Note jodo') + '</button></p>';
+    body += '<p class="done-meta">' + (at && !isNaN(at) ? 'Completed ' + pad(at.getHours()) + ':' + pad(at.getMinutes()) : 'Completed') +
+      (editable(key) && isF ? '<button type="button" class="link" data-act="edit" data-slot="' + s.id + '">' + (dn.note ? 'Edit note' : 'Add note') + '</button>' : '') + '</p>';
   }
   const c = state.composing;
   let comp = '';
-  if (c && c.slot === s.id && !future) {
-    const cat = s.cat || 'skill', need = s.kind === 'focus';
-    comp = '<div class="composer"><label for="note-input">Kya kiya is slot mein?</label>' +
-      '<textarea id="note-input" rows="3" placeholder="' + esc(PH[cat] || 'Ek line likh do') + '">' + esc(c.text) + '</textarea>' +
-      (CHIPS[cat] && need ? '<div class="chips">' + CHIPS[cat].map(t => '<button type="button" class="chip" data-act="chip" data-text="' + esc(t) + '">' + esc(t) + '</button>').join('') + '</div>' : '') +
+  if (c && c.slot === s.id && ts.ok) {
+    const cat = s.cat || 'skill';
+    comp = '<div class="composer"><label for="note-input">What did you accomplish in this block?</label>' +
+      '<textarea id="note-input" rows="3" placeholder="' + esc(PH[cat]) + '">' + esc(c.text) + '</textarea>' +
+      '<div class="chips">' + CHIPS[cat].map(t => '<button type="button" class="chip" data-act="chip" data-text="' + esc(t) + '">' + esc(t) + '</button>').join('') + '</div>' +
       '<div class="row"><button type="button" class="btn" data-act="cancel">Cancel</button>' +
-      '<button type="button" class="btn primary" id="save-note" data-act="save-note"' + (need && c.text.trim().length < 3 ? ' disabled' : '') + '>' + (c.edit ? 'Note save' : 'Complete +' + xp + ' XP') + '</button></div></div>';
+      '<button type="button" class="btn primary" id="save-note" data-act="save-note"' + (c.text.trim().length < 3 ? ' disabled' : '') + '>' + (c.edit ? 'Save note' : 'Complete +' + xp + ' XP') + '</button></div></div>';
   }
-  const label = dn ? 'Untick ' + s.title : 'Complete ' + s.title;
-  return '<li class="slot' + (dn ? ' done' : '') + '" data-slot="' + s.id + '" data-start="' + s.start + '" data-end="' + s.end + '" data-point="' + (s.point ? 1 : 0) + '" data-bonus="' + (s.bonus ? 1 : 0) + '">' +
+  const label = dn ? 'Mark ' + s.title + ' as not done' : (ts.ok ? 'Complete ' + s.title : s.title + ': ' + ts.why);
+  return '<li class="slot' + (isF ? '' : ' routine') + (dn ? ' done' : '') + (missed ? ' missed' : '') + '" data-slot="' + s.id + '" data-start="' + s.start + '" data-end="' + s.end + '" data-point="' + (s.point ? 1 : 0) + '">' +
     '<div class="time">' + time + '</div>' +
     '<div class="slot-main"><h3 class="slot-title">' + esc(s.title) + '</h3><p class="hint">' + esc(s.hint) + '</p><div class="meta">' + meta + '</div>' + body + '</div>' +
-    '<button type="button" class="chk" data-act="check" data-slot="' + s.id + '" aria-pressed="' + (dn ? 'true' : 'false') + '" aria-label="' + esc(label) + '"' + (future ? ' disabled' : '') + '>' + (future ? I.lock : I.check) + '</button>' +
+    '<button type="button" class="chk" data-act="check" data-slot="' + s.id + '" aria-pressed="' + (dn ? 'true' : 'false') + '" aria-label="' + esc(label) + '"' + (ts.ok ? '' : ' disabled') + '>' + (ts.ok || dn ? I.check : I.lock) + '</button>' +
     comp + '</li>';
 }
 
 function todayHTML() {
   const key = state.view, d = parseKey(key), tk = todayKey(), future = key > tk;
-  const slots = slotsFor(d), day = dayData(key), st = calc(key, day.done), a = agg(), p = phaseOf(d), ph = PHASES[p];
+  const slots = slotsFor(d), day = state.days[key] ? ensureDay(key) : { done: {}, journal: '' }, st = dayStat(key), a = agg(), p = phaseOf(d), ph = PHASES[p];
   const sun = d.getDay() === 0;
   let h = '';
-  if (key !== tk) h += '<div class="banner"><span>' + (future ? 'Aage ka din dekh rahe ho' : 'Purana din dekh rahe ho') + ': ' + WD[d.getDay()] + ', ' + d.getDate() + ' ' + MON[d.getMonth()] + '</span><button type="button" class="link" data-act="today">Aaj pe wapas</button></div>';
-  h += '<section class="panel hero" aria-label="Daily power">' + reactorSVG(st.pct) +
-    '<div class="hero-info"><div class="pills"><span class="pill" data-p="' + p + '">Phase ' + p + ' · ' + esc(ph.name) + '</span>' + (sun ? '<span class="pill sun">Sunday · Dosto ki shaam</span>' : '') + '</div>' +
+  if (key !== tk) h += '<div class="banner"><span>' + (future ? 'Previewing a future day' : (editable(key) ? 'Viewing yesterday. Edits stay open until ' + mm(GRACE_UNTIL) : 'Viewing a past day. This record is closed')) + ': ' + WD[d.getDay()] + ', ' + d.getDate() + ' ' + MON[d.getMonth()] + '</span><button type="button" class="link" data-act="today">Back to today</button></div>';
+  h += '<section class="panel hero" aria-label="Daily focus">' + reactorSVG(st.pct) +
+    '<div class="hero-info"><div class="pills"><span class="pill" data-p="' + p + '">Phase ' + p + ' &middot; ' + esc(ph.name) + '</span>' + (sun ? '<span class="pill sun">Sunday &middot; Friends</span>' : '') + '</div>' +
     '<h2 class="day-title">' + WD[d.getDay()] + ', ' + d.getDate() + ' ' + MON[d.getMonth()] + '</h2>' +
-    '<p class="nextup" id="nextup">' + esc(nextText()) + '</p>' +
-    '<div class="stats"><div class="stat fire"><small>' + I.flame + 'Streak</small><b>' + a.cur + ' din</b><span>best ' + a.best + '</span></div>' +
-    '<div class="stat bolt"><small>' + I.bolt + 'XP</small><b>' + fmt(st.xp) + '</b><span>is din ka</span></div>' +
-    '<div class="stat"><small>Slots</small><b>' + st.doneCount + '/' + st.total + '</b><span>' + (st.pct >= STREAK_PCT ? 'streak safe' : STREAK_PCT + '% = streak') + '</span></div></div></div></section>';
-  h += '<ol class="slots" id="slots">' + slots.map(s => slotHTML(s, day, future)).join('') + '</ol>';
+    '<p class="nextup" id="nextup">' + esc(nextText()) + '</p>' + nextRewardHTML(a) +
+    '<div class="stats"><div class="stat fire"><small>' + I.flame + 'Streak</small><b>' + a.cur + ' days</b><span>best ' + a.best + '</span></div>' +
+    '<div class="stat bolt"><small>' + I.bolt + 'XP today</small><b>' + (st.net > 0 ? '+' : '') + fmt(st.net) + '</b><span>' + (st.penalty > 0 ? '-' + fmt(st.penalty) + ' penalty' : 'no penalties') + '</span></div>' +
+    '<div class="stat"><small>Focus blocks</small><b>' + st.fDone + '/' + st.fTotal + '</b><span>' + (st.pct >= STREAK_PCT ? 'streak safe' : STREAK_PCT + '% keeps streak') + '</span></div></div></div></section>';
+  h += '<ol class="slots" id="slots">' + slots.map(s => slotHTML(s, key, day)).join('') + '</ol>';
   if (!future) {
-    h += '<section class="panel panel-pad journal"><label class="h2" for="journal-input">Aaj ka log</label><p class="hint">Din ke end mein 2-3 line: kya sikha, kya atka, kal kya karna hai.</p>' +
-      '<textarea id="journal-input" rows="4" placeholder="Aaj maine…">' + esc(day.journal || '') + '</textarea><p class="saved" id="saved">' + esc(state.saved || 'Auto-save on') + '</p></section>';
+    h += '<section class="panel panel-pad journal"><label class="h2" for="journal-input">Daily log</label><p class="hint">Write two or three lines: what you learned, what blocked you, and the plan for tomorrow.</p>' +
+      '<textarea id="journal-input" rows="4" placeholder="Today I...">' + esc(day.journal || '') + '</textarea><p class="saved" id="saved">' + esc(state.saved || 'Autosave on') + '</p></section>';
   }
   return h;
 }
 
 function weekHTML() {
   const tk = todayKey(), days = [], prev = [];
-  for (let i = 6; i >= 0; i--) { const d = parseKey(tk); d.setDate(d.getDate() - i); days.push(keyOf(d)); }
-  for (let i = 13; i >= 7; i--) { const d = parseKey(tk); d.setDate(d.getDate() - i); prev.push(keyOf(d)); }
-  const keys = Object.keys(state.days).sort(), first = keys[0] || tk;
-  const val = k => (state.days[k] && state.days[k].pct) || 0, xpv = k => (state.days[k] && state.days[k].xp) || 0;
+  for (let i = 6; i >= 0; i--) days.push(addDays(tk, -i));
+  for (let i = 13; i >= 7; i--) prev.push(addDays(tk, -i));
+  const first = startKey();
   const counted = days.filter(k => k >= first);
+  const val = k => dayStat(k).pct;
   const avg = counted.length ? Math.round(counted.reduce((s, k) => s + val(k), 0) / counted.length) : 0;
-  const xp = days.reduce((s, k) => s + xpv(k), 0), pxp = prev.reduce((s, k) => s + xpv(k), 0);
-  const f = { client: 0, skill: 0, reading: 0 }; let perfect = 0, bestK = null;
-  days.forEach(k => { const d = state.days[k]; if (!d) return; const ff = d.focus || {}; f.client += ff.client || 0; f.skill += ff.skill || 0; f.reading += ff.reading || 0; if ((d.pct || 0) >= 100) perfect++; if (!bestK || val(k) > val(bestK)) bestK = k; });
+  const net = ks => ks.filter(k => k >= first).reduce((s, k) => s + dayStat(k).net, 0);
+  const xp = net(days), pxp = net(prev);
+  const pen = days.filter(k => k >= first).reduce((s, k) => s + dayStat(k).penalty, 0);
+  const f = { client: 0, skill: 0, reading: 0 }; let perfect = 0, bestK = null, bestV = -1;
+  days.forEach(k => { if (k < first) return; const st = dayStat(k); f.client += st.focus.client; f.skill += st.focus.skill; f.reading += st.focus.reading; if (st.pct >= 100) perfect++; if (st.pct > bestV) { bestV = st.pct; bestK = k; } });
   const grade = avg >= 85 ? 'S' : avg >= 70 ? 'A' : avg >= 55 ? 'B' : avg >= 40 ? 'C' : 'D';
-  const say = { S: 'Superb hafta. Armor full power pe chala. Yahi rhythm banaye rakho.', A: 'Mast hafta. Thoda aur push karo, Perfect Day bas ek step door hai.', B: 'Theek chala. Client aur skill blocks pe dhyan do, wahi sabse zyada XP dete hain.', C: 'Hafta dheela raha. Kal subah ka pehla slot tick karke momentum banao.', D: 'Reset karo. Poore din ki jagah sirf agle slot pe dhyan do.' }[grade];
+  const say = { S: 'Outstanding week. Your routine is running at full power.', A: 'Strong week. A perfect day is within reach.', B: 'Solid week. Protect the skill and client blocks, since they carry the most XP.', C: 'Below target. Start tomorrow by completing the first focus block on time.', D: 'Reset needed. Ignore the whole day and complete only the next block.' }[grade];
   const a = agg();
   const bars = days.map(k => {
     const d = parseKey(k), v = val(k);
-    return '<button type="button" class="bar-col" data-act="open-day" data-day="' + k + '" aria-label="' + WD[d.getDay()] + ' ' + d.getDate() + ': ' + v + ' percent"><span class="bv">' + v + '</span><span class="bar"><i class="' + (v >= STREAK_PCT ? 'hit' : '') + '" style="height:' + v + '%"></i></span><span class="bl">' + WD[d.getDay()] + '<small>' + d.getDate() + '</small></span></button>';
+    return '<button type="button" class="bar-col" data-act="open-day" data-day="' + k + '" aria-label="' + WD[d.getDay()] + ' ' + d.getDate() + ': ' + v + ' percent focus"><span class="bv">' + v + '</span><span class="bar"><i class="' + (v >= STREAK_PCT ? 'hit' : '') + '" style="height:' + v + '%"></i></span><span class="bl">' + WD[d.getDay()] + '<small>' + d.getDate() + '</small></span></button>';
   }).join('');
   const bd = bestK ? parseKey(bestK) : null;
-  return '<section class="panel panel-pad" style="display:grid;gap:14px"><h2 class="h2">Last 7 days · daily power %</h2><div class="bars">' + bars + '</div>' +
-    '<p class="legend"><span><i style="background:var(--reactor)"></i>70%+ streak din</span><span><i style="background:var(--violet)"></i>70% se kam</span><span>Line = 70%</span></p></section>' +
+  return '<section class="panel panel-pad" style="display:grid;gap:14px"><h2 class="h2">Last 7 days &middot; focus completion %</h2><div class="bars">' + bars + '</div>' +
+    '<p class="legend"><span><i style="background:var(--reactor)"></i>70%+ keeps the streak</span><span><i style="background:var(--violet)"></i>Below 70%</span></p></section>' +
     '<section class="panel panel-pad grade"><div class="grade-l" aria-label="Grade ' + grade + '">' + grade + '</div><div><h2 class="h2">Weekly debrief</h2><p style="font-size:18px">' + esc(say) + '</p></div></section>' +
     '<section class="kv" aria-label="Weekly numbers">' +
-    '<div><small>Avg power</small><b>' + avg + '%</b><br><em>' + counted.length + ' din ginte</em></div>' +
-    '<div><small>XP</small><b>' + fmt(xp) + '</b><br><em>' + (pxp > 0 ? (xp >= pxp ? '+' : '') + fmt(xp - pxp) + ' vs pichla hafta' : 'pichla hafta data nahi') + '</em></div>' +
+    '<div><small>Avg focus</small><b>' + avg + '%</b><br><em>' + counted.length + ' days counted</em></div>' +
+    '<div><small>Net XP</small><b>' + (xp > 0 ? '+' : '') + fmt(xp) + '</b><br><em>' + (pxp !== 0 ? (xp >= pxp ? '+' : '') + fmt(xp - pxp) + ' vs last week' : 'no earlier week yet') + '</em></div>' +
+    '<div><small>Penalties</small><b>-' + fmt(pen) + '</b><br><em>missed focus blocks</em></div>' +
     '<div><small>Client hunting</small><b>' + hrs(f.client) + 'h</b></div>' +
     '<div><small>Skill upgrade</small><b>' + hrs(f.skill) + 'h</b></div>' +
     '<div><small>Reading</small><b>' + hrs(f.reading) + 'h</b></div>' +
     '<div><small>Perfect days</small><b>' + perfect + '</b></div>' +
-    '<div><small>Streak</small><b>' + a.cur + ' din</b><br><em>best ' + a.best + '</em></div>' +
-    '<div><small>Best day</small><b>' + (bd ? WD[bd.getDay()] + ' ' + bd.getDate() : '-') + '</b><br><em>' + (bestK ? val(bestK) + '%' : 'abhi data nahi') + '</em></div></section>';
+    '<div><small>Streak</small><b>' + a.cur + ' days</b><br><em>best ' + a.best + '</em></div>' +
+    '<div><small>Best day</small><b>' + (bd ? WD[bd.getDay()] + ' ' + bd.getDate() : '-') + '</b><br><em>' + (bd ? bestV + '%' : 'no data yet') + '</em></div></section>';
 }
 
 function monthHTML() {
-  const y = state.month.y, m = state.month.m, tk = todayKey();
-  const first = new Date(y, m, 1), dim = new Date(y, m + 1, 0).getDate(), lead = (first.getDay() + 6) % 7;
+  const y = state.month.y, m = state.month.m, tk = todayKey(), first = startKey();
+  const f1 = new Date(y, m, 1), dim = new Date(y, m + 1, 0).getDate(), lead = (f1.getDay() + 6) % 7;
   let cells = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(w => '<span class="wd">' + w + '</span>').join('');
   for (let i = 0; i < lead; i++) cells += '<span class="cell empty"></span>';
   let act = 0, sumPct = 0, sumXp = 0;
   for (let d = 1; d <= dim; d++) {
-    const dt = new Date(y, m, d), k = keyOf(dt), dd = state.days[k], pct = (dd && dd.pct) || 0;
-    if (dd && (dd.doneCount || 0) > 0) { act++; sumPct += pct; sumXp += dd.xp || 0; }
-    cells += '<button type="button" class="cell' + (k > tk ? ' future' : '') + (k === tk ? ' today' : '') + (k === state.view ? ' sel' : '') + '" data-p="' + phaseOf(dt) + '" data-act="open-day" data-day="' + k + '" aria-label="' + d + ' ' + MONFULL[m] + ', phase ' + phaseOf(dt) + ', ' + pct + ' percent">' +
+    const dt = new Date(y, m, d), k = keyOf(dt), live = k >= first && k <= tk, st = live ? dayStat(k) : null, pct = st ? st.pct : 0;
+    if (st && (st.doneCount > 0)) { act++; sumPct += pct; }
+    if (st) sumXp += st.net;
+    cells += '<button type="button" class="cell' + (k > tk ? ' future' : '') + (k === tk ? ' today' : '') + (k === state.view ? ' sel' : '') + '" data-p="' + phaseOf(dt) + '" data-act="open-day" data-day="' + k + '" aria-label="' + d + ' ' + MONFULL[m] + ', phase ' + phaseOf(dt) + ', ' + pct + ' percent focus">' +
       '<span>' + d + '</span>' + (dt.getDay() === 0 ? '<span class="sd" title="Sunday"></span>' : '<span></span>') + '<span class="pb"><i style="width:' + pct + '%"></i></span></button>';
   }
-  return '<section class="panel panel-pad" style="display:grid;gap:14px"><div class="month-head"><button type="button" class="nav-btn" data-act="month-prev" aria-label="Pichla mahina">' + I.left + '</button><h2>' + MONFULL[m] + ' ' + y + '</h2><button type="button" class="nav-btn" data-act="month-next" aria-label="Agla mahina">' + I.right + '</button></div>' +
-    '<div class="cal">' + cells + '</div><p class="legend"><span><i style="background:var(--violet);border-radius:50%"></i>Sunday</span><span>Neeche ki bar = din ka power %</span></p></section>' +
-    '<section class="panel panel-pad leg-p"><h2 class="h2">3 phase ka chakra</h2>' +
-    [1, 2, 3].map(p => '<div data-p="' + p + '"><i></i><span><b>' + PHASES[p].name + '</b> · ' + PHASES[p].range + ' · ' + PHASES[p].blurb + '</span></div>').join('') + '</section>' +
-    '<section class="kv"><div><small>Active din</small><b>' + act + '</b></div><div><small>Avg power</small><b>' + (act ? Math.round(sumPct / act) : 0) + '%</b></div><div><small>XP is mahine</small><b>' + fmt(sumXp) + '</b></div></section>';
+  return '<section class="panel panel-pad" style="display:grid;gap:14px"><div class="month-head"><button type="button" class="nav-btn" data-act="month-prev" aria-label="Previous month">' + I.left + '</button><h2>' + MONFULL[m] + ' ' + y + '</h2><button type="button" class="nav-btn" data-act="month-next" aria-label="Next month">' + I.right + '</button></div>' +
+    '<div class="cal">' + cells + '</div><p class="legend"><span><i style="background:var(--violet);border-radius:50%"></i>Sunday</span><span>Bar under each date = focus completion</span></p></section>' +
+    '<section class="panel panel-pad leg-p"><h2 class="h2">Monthly phases</h2>' +
+    [1, 2, 3].map(p => '<div data-p="' + p + '"><i></i><span><b>' + PHASES[p].name + '</b> &middot; ' + PHASES[p].range + ' &middot; ' + PHASES[p].blurb + '</span></div>').join('') + '</section>' +
+    '<section class="kv"><div><small>Active days</small><b>' + act + '</b></div><div><small>Avg focus</small><b>' + (act ? Math.round(sumPct / act) : 0) + '%</b></div><div><small>Net XP this month</small><b>' + fmt(sumXp) + '</b></div></section>';
+}
+
+function rewardsHTML() {
+  const a = agg(), cfg = state.cfg, f = state.rwForm;
+  const KIND = { xp: 'XP milestone', streak: 'One-time streak', weekly: 'Repeating streak' };
+  const kindOf = r => r.kind === 'xp' ? 'xp' : (r.repeat ? 'weekly' : 'streak');
+  const cards = cfg.rewards.map(r => {
+    const p = rewardProg(r, a), k = kindOf(r), status = p.avail > 0 ? 'ready' : (p.earned > 0 && p.claimed >= p.earned ? 'claimed' : 'locked');
+    return '<article class="reward ' + status + '"><div class="rw-top"><span class="rw-kind">' + KIND[k] + '</span><span class="rw-state">' + (status === 'ready' ? 'Unlocked' : status === 'claimed' ? 'Claimed' : 'Locked') + '</span></div>' +
+      '<h3>' + esc(r.name) + '</h3>' +
+      '<p class="hint">' + (r.kind === 'xp' ? 'Unlocks at ' + fmt(p.goal) + ' total XP.' : 'Unlocks after a ' + p.goal + '-day streak at ' + STREAK_PCT + '% focus or higher' + (r.repeat ? ', every time you complete one.' : '.')) + '</p>' +
+      '<div class="prog" role="progressbar" aria-valuenow="' + Math.round(p.frac * 100) + '" aria-valuemin="0" aria-valuemax="100"><i style="width:' + Math.round(p.frac * 100) + '%"></i></div>' +
+      '<p class="rw-text"><b>' + esc(p.text) + '</b><span>' + esc(p.sub) + '</span></p>' +
+      '<p class="rw-meta">Earned ' + p.earned + (p.earned === 1 ? ' time' : ' times') + ' &middot; Claimed ' + p.claimed + '</p>' +
+      '<div class="row rw-actions">' +
+      (p.avail > 0 ? '<button type="button" class="btn primary" data-act="claim" data-id="' + esc(r.id) + '">Claim' + (p.avail > 1 ? ' (' + p.avail + ' available)' : '') + '</button>' : '') +
+      '<button type="button" class="btn" data-act="rw-edit" data-id="' + esc(r.id) + '">Edit</button>' +
+      (state.confirmDel === r.id ? '<button type="button" class="btn danger" data-act="rw-del" data-id="' + esc(r.id) + '">Confirm remove</button>' : '<button type="button" class="btn" data-act="rw-del" data-id="' + esc(r.id) + '">Remove</button>') +
+      '</div></article>';
+  }).join('');
+  let form = '';
+  if (f) {
+    form = '<form class="panel panel-pad field" id="rw-form" novalidate><h2 class="h2">' + (f.id ? 'Edit reward' : 'New reward') + '</h2>' +
+      '<label for="rw-name">Reward name</label><input id="rw-name" type="text" maxlength="60" autocomplete="off" value="' + esc(f.name) + '" placeholder="Example: Weekend trip to Rishikesh">' +
+      '<label for="rw-kind">Unlocks when</label><select id="rw-kind"><option value="xp"' + (f.kind === 'xp' ? ' selected' : '') + '>Total XP reaches the target</option><option value="streak"' + (f.kind === 'streak' ? ' selected' : '') + '>A streak reaches the target (one time)</option><option value="weekly"' + (f.kind === 'weekly' ? ' selected' : '') + '>A streak reaches the target (repeats)</option></select>' +
+      '<label for="rw-goal">Target (' + (f.kind === 'xp' ? 'XP' : 'days') + ')</label><input id="rw-goal" type="number" inputmode="numeric" min="1" step="1" value="' + esc(f.goal) + '">' +
+      '<p class="auth-msg" id="rw-msg" role="alert"></p>' +
+      '<div class="row"><button type="button" class="btn" data-act="rw-cancel">Cancel</button><button type="button" class="btn primary" data-act="rw-save">Save reward</button></div></form>';
+  }
+  return '<section class="panel panel-pad" style="display:grid;gap:8px"><h2 class="h2">Reward vault</h2><p class="hint">Rewards unlock from consistent focus work. Routine slots do not count. Missed focus blocks cost XP and a day below ' + STREAK_PCT + '% resets your streak.</p></section>' +
+    '<section class="rewards">' + (cards || '<p class="hint">No rewards yet. Add one to give your streak something to aim at.</p>') + '</section>' +
+    (f ? form : '<div class="row"><button type="button" class="btn primary" data-act="rw-add">Add reward</button></div>');
 }
 
 function badgesHTML() {
   const a = agg();
-  return '<section class="kv"><div><small>Total XP</small><b>' + fmt(a.xp) + '</b></div><div><small>Best streak</small><b>' + a.best + ' din</b></div><div><small>Active din</small><b>' + a.active + '</b></div><div><small>Focus total</small><b>' + hrs(a.focus.client + a.focus.skill + a.focus.reading) + 'h</b></div></section>' +
+  return '<section class="kv"><div><small>Total XP</small><b>' + fmt(a.xp) + '</b></div><div><small>Best streak</small><b>' + a.best + ' days</b></div><div><small>Active days</small><b>' + a.active + '</b></div><div><small>Total focus</small><b>' + hrs(a.focus.client + a.focus.skill + a.focus.reading) + 'h</b></div></section>' +
     '<section class="badges">' + BADGES.map(b => {
       const v = b.val(a), on = v >= b.goal, pct = Math.min(100, Math.round(v / b.goal * 100));
       const shown = b.unit === 'h' ? v.toFixed(1) : Math.floor(v);
@@ -663,29 +827,34 @@ function badgesHTML() {
 
 function applyTimeClasses() {
   const el = $('#slots'); if (!el) return;
-  const key = state.view, tk = todayKey(), n = new Date(), nm = n.getHours() * 60 + n.getMinutes();
+  const key = state.view, tk = todayKey(), nm = nowMin();
   el.querySelectorAll('[data-slot]').forEach(li => {
-    const st = +li.dataset.start, en = +li.dataset.end, point = li.dataset.point === '1', bonus = li.dataset.bonus === '1';
+    const st = +li.dataset.start, en = +li.dataset.end, point = li.dataset.point === '1';
     let ts;
     if (key > tk) ts = 'future'; else if (key < tk) ts = 'past';
     else ts = point ? (nm >= st ? 'past' : 'future') : (nm >= en ? 'past' : (nm >= st ? 'now' : 'future'));
     li.dataset.ts = ts;
-    li.classList.toggle('missed', ts === 'past' && !bonus && !li.classList.contains('done'));
   });
   const nx = $('#nextup'); if (nx) nx.textContent = nextText();
 }
+function timeSig() {
+  const tk = todayKey(), st = dayStat(tk), nm = nowMin();
+  return tk + '|' + st.penalty + '|' + slotsFor(parseKey(tk)).filter(s => s.start <= nm).length + '|' + (editable(addDays(tk, -1)) ? 1 : 0);
+}
 
 function render() {
+  invalidate();
   const ae = document.activeElement, fid = ae && ae.id, sel = (ae && typeof ae.selectionStart === 'number') ? [ae.selectionStart, ae.selectionEnd] : null;
-  $('#head').innerHTML = headHTML();
   const out = state.auth === 'out';
-  $('#main').innerHTML = out ? authHTML() : state.tab === 'today' ? todayHTML() : state.tab === 'week' ? weekHTML() : state.tab === 'month' ? monthHTML() : badgesHTML();
+  $('#head').innerHTML = headHTML();
+  $('#main').innerHTML = out ? hooks.authHTML() : state.tab === 'today' ? todayHTML() : state.tab === 'week' ? weekHTML() : state.tab === 'month' ? monthHTML() : state.tab === 'rewards' ? rewardsHTML() : badgesHTML();
   $('.nav').hidden = out;
   document.querySelectorAll('#nav button').forEach(b => { if (b.dataset.tab === state.tab) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
   applyTimeClasses();
+  lastSig = timeSig();
   if (state.focusNote) {
     state.focusNote = false;
-    const ta = $('#note-input'); if (ta) { ta.focus({ preventScroll: false }); ta.setSelectionRange(ta.value.length, ta.value.length); }
+    const ta = $('#note-input'); if (ta) { ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); }
   } else if (fid) {
     const el = document.getElementById(fid);
     if (el) { el.focus({ preventScroll: true }); if (sel && el.setSelectionRange) { try { el.setSelectionRange(sel[0], sel[1]); } catch (e) { /* ignore */ } } }
@@ -697,16 +866,16 @@ const slotById = id => slotsFor(parseKey(state.view)).find(s => s.id === id);
 
 function onCheck(id) {
   const key = state.view, s = slotById(id); if (!s) return;
-  if (key > todayKey()) { toast('Ye din abhi shuru nahi hua.'); return; }
-  const cur = dayData(key).done[id];
+  const day = state.days[key] ? ensureDay(key) : { done: {} }, cur = day.done[id], ts = tickState(key, s, !!cur);
+  if (!ts.ok) { toast(ts.why === 'Day closed' ? 'This day is closed. Only today, and yesterday until ' + mm(GRACE_UNTIL) + ', can be edited.' : ts.why === 'Not started' ? 'This day has not started yet.' : 'This block ' + ts.why.toLowerCase() + '.'); return; }
   if (cur) {
     const prev = clone(cur);
     state.composing = null;
     commit(key, d => { delete d.done[id]; });
-    toast(s.title + ' untick kiya', { label: 'Undo', fn: () => commit(key, d => { d.done[id] = prev; }) });
+    toast(s.title + ' marked as not done', { label: 'Undo', fn: () => commit(key, d => { d.done[id] = prev; }) });
     return;
   }
-  if (s.kind === 'duty') { state.composing = null; commit(key, d => { d.done[id] = { at: new Date().toISOString(), note: '' }; }); return; }
+  if (s.kind !== 'focus') { state.composing = null; commit(key, d => { d.done[id] = { at: clock().toISOString(), note: '' }; }); return; }
   state.composing = { slot: id, text: '', edit: false }; state.focusNote = true; render();
 }
 
@@ -714,17 +883,28 @@ function saveNote() {
   const c = state.composing; if (!c) return;
   const s = slotById(c.slot); if (!s) return;
   const text = (c.text || '').trim();
-  if (s.kind === 'focus' && text.length < 3) { toast('Thoda likho: is slot mein kya kiya?'); return; }
+  if (text.length < 3) { toast('Add a short note about what you did in this block.'); return; }
   const key = state.view; state.composing = null;
-  commit(key, d => { const old = d.done[c.slot]; d.done[c.slot] = { at: (old && old.at) || new Date().toISOString(), note: text }; });
+  commit(key, d => { const old = d.done[c.slot]; d.done[c.slot] = { at: (old && old.at) || clock().toISOString(), note: text }; });
+}
+
+function saveReward() {
+  const f = state.rwForm; if (!f) return;
+  const name = (f.name || '').trim(), goal = Math.floor(+f.goal), msg = $('#rw-msg');
+  if (!name) { if (msg) msg.textContent = 'Enter a reward name.'; return; }
+  if (!(goal >= 1) || goal > 100000) { if (msg) msg.textContent = 'Enter a target of 1 or more.'; return; }
+  const r = { id: f.id || ('r' + Date.now().toString(36)), name, kind: f.kind === 'xp' ? 'xp' : 'streak', goal, repeat: f.kind === 'weekly' };
+  const i = state.cfg.rewards.findIndex(x => x.id === r.id);
+  if (i >= 0) state.cfg.rewards[i] = r; else state.cfg.rewards.push(r);
+  state.rwForm = null; saveCfg(); render(); toast('Reward saved: ' + name);
 }
 
 document.addEventListener('click', e => {
   const b = e.target.closest('[data-act]'); if (!b) return;
   const a = b.dataset.act;
-  if (a === 'tab') { state.tab = b.dataset.tab; state.composing = null; render(); window.scrollTo({ top: 0 }); }
+  if (a === 'tab') { state.tab = b.dataset.tab; state.composing = null; state.rwForm = null; state.confirmDel = null; render(); window.scrollTo({ top: 0 }); }
   else if (a === 'check') onCheck(b.dataset.slot);
-  else if (a === 'edit') { const cur = dayData(state.view).done[b.dataset.slot]; state.composing = { slot: b.dataset.slot, text: (cur && cur.note) || '', edit: true }; state.focusNote = true; render(); }
+  else if (a === 'edit') { const dn = (state.days[state.view] && state.days[state.view].done[b.dataset.slot]) || null; state.composing = { slot: b.dataset.slot, text: (dn && dn.note) || '', edit: true }; state.focusNote = true; render(); }
   else if (a === 'cancel') { state.composing = null; render(); }
   else if (a === 'save-note') saveNote();
   else if (a === 'chip') {
@@ -736,61 +916,81 @@ document.addEventListener('click', e => {
   else if (a === 'open-day') { state.view = b.dataset.day; const d = parseKey(state.view); state.month = { y: d.getFullYear(), m: d.getMonth() }; state.tab = 'today'; state.composing = null; render(); window.scrollTo({ top: 0 }); }
   else if (a === 'today') { state.view = todayKey(); state.composing = null; render(); }
   else if (a === 'month-prev' || a === 'month-next') { const dlt = a === 'month-prev' ? -1 : 1, d = new Date(state.month.y, state.month.m + dlt, 1); state.month = { y: d.getFullYear(), m: d.getMonth() }; render(); }
-  else if (a === 'signin' || a === 'signup') doAuth(a);
-  else if (a === 'signout') { if (fb) fb.authM.signOut(fb.auth).catch(() => {}); }
-  else if (a === 'toast-act') { const f = toastFn; toastFn = null; $('#toast').hidden = true; if (f) f(); }
+  else if (a === 'claim') {
+    const r = state.cfg.rewards.find(x => x.id === b.dataset.id); if (!r) return;
+    const p = rewardProg(r, agg()); if (p.avail < 1) return;
+    state.cfg.claimed[r.id] = (state.cfg.claimed[r.id] || 0) + 1; saveCfg(); render(); toast('Reward claimed: ' + r.name + '. Enjoy it, you earned it.');
+  }
+  else if (a === 'rw-add') { state.rwForm = { id: null, name: '', kind: 'xp', goal: '' }; render(); const n = $('#rw-name'); if (n) n.focus(); }
+  else if (a === 'rw-edit') { const r = state.cfg.rewards.find(x => x.id === b.dataset.id); if (!r) return; state.rwForm = { id: r.id, name: r.name, kind: r.kind === 'xp' ? 'xp' : (r.repeat ? 'weekly' : 'streak'), goal: r.goal }; state.confirmDel = null; render(); const n = $('#rw-name'); if (n) n.focus(); }
+  else if (a === 'rw-cancel') { state.rwForm = null; render(); }
+  else if (a === 'rw-save') saveReward();
+  else if (a === 'rw-del') {
+    const id = b.dataset.id;
+    if (state.confirmDel !== id) { state.confirmDel = id; render(); return; }
+    state.cfg.rewards = state.cfg.rewards.filter(x => x.id !== id); delete state.cfg.claimed[id]; state.confirmDel = null; saveCfg(); render(); toast('Reward removed.');
+  }
+  else if (a === 'signin' || a === 'signup') { if (hooks.doAuth) hooks.doAuth(a); }
+  else if (a === 'signout') { if (hooks.signOut) hooks.signOut(); }
+  else if (a === 'toast-act') { const fn = toastFn; toastFn = null; $('#toast').hidden = true; if (fn) fn(); }
 });
 
 document.addEventListener('input', e => {
   const t = e.target;
   if (t.id === 'note-input' && state.composing) {
     state.composing.text = t.value;
-    const s = slotById(state.composing.slot), btn = $('#save-note');
-    if (btn && s) btn.disabled = s.kind === 'focus' && t.value.trim().length < 3;
+    const btn = $('#save-note'); if (btn) btn.disabled = t.value.trim().length < 3;
   } else if (t.id === 'journal-input') {
     const key = state.view; ensureDay(key).journal = t.value;
-    state.saved = 'Likh rahe ho…'; const sv = $('#saved'); if (sv) sv.textContent = state.saved;
+    state.saved = 'Typing...'; const sv = $('#saved'); if (sv) sv.textContent = state.saved;
     clearTimeout(jt[key]);
     jt[key] = setTimeout(() => { delete jt[key]; persist(key); state.saved = 'Saved'; const s2 = $('#saved'); if (s2) s2.textContent = state.saved; }, 800);
-  }
+  } else if (t.id === 'rw-name' && state.rwForm) state.rwForm.name = t.value;
+  else if (t.id === 'rw-goal' && state.rwForm) state.rwForm.goal = t.value;
+  else if (t.id === 'rw-kind' && state.rwForm) { state.rwForm.kind = t.value; const lb = document.querySelector('label[for="rw-goal"]'); if (lb) lb.textContent = 'Target (' + (t.value === 'xp' ? 'XP' : 'days') + ')'; }
 });
 document.addEventListener('keydown', e => {
   if (e.target.id === 'note-input' && e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); saveNote(); }
-  if (e.target.id === 'auth-pass' && e.key === 'Enter') { e.preventDefault(); doAuth('signin'); }
+  if (e.target.id === 'auth-pass' && e.key === 'Enter' && hooks.doAuth) { e.preventDefault(); hooks.doAuth('signin'); }
 });
 
-/* ---------- cloud (Firebase) ---------- */
-let fb = null, unsubDays = null;
 function setMode(m) { state.mode = m; render(); }
 
+/* ---------- cloud (Firebase) ---------- */
+let fb = null, unsubs = [];
 const AUTH_MSG = {
-  'auth/invalid-credential': 'Email ya password galat hai.',
-  'auth/wrong-password': 'Email ya password galat hai.',
-  'auth/user-not-found': 'Is email ka account nahi mila. Create account dabao.',
-  'auth/invalid-email': 'Email sahi format mein daalo.',
-  'auth/email-already-in-use': 'Ye email pehle se registered hai. Sign in karo.',
-  'auth/weak-password': 'Password kam se kam 6 character ka rakho.',
-  'auth/operation-not-allowed': 'Firebase mein Email/Password sign-in on nahi hai.',
-  'auth/admin-restricted-operation': 'Naye account band hain. Apne purane account se sign in karo.',
-  'auth/network-request-failed': 'Net nahi mil raha. Connection check karo.',
-  'auth/too-many-requests': 'Bahut koshish ho gayi. Thodi der baad try karo.'
+  'auth/invalid-credential': 'The email or password is incorrect.',
+  'auth/wrong-password': 'The email or password is incorrect.',
+  'auth/user-not-found': 'No account exists for this email. Choose Create account.',
+  'auth/invalid-email': 'Enter a valid email address.',
+  'auth/email-already-in-use': 'This email is already registered. Choose Sign in.',
+  'auth/weak-password': 'Use a password with at least 6 characters.',
+  'auth/operation-not-allowed': 'Email/Password sign-in is not enabled in Firebase.',
+  'auth/admin-restricted-operation': 'New sign-ups are disabled. Sign in with your existing account.',
+  'auth/network-request-failed': 'Network error. Check your connection and try again.',
+  'auth/too-many-requests': 'Too many attempts. Try again in a few minutes.'
 };
-
-async function doAuth(kind) {
+hooks.authHTML = () => '<form class="panel auth field" id="auth-form" novalidate><h2 class="h2">Sign in</h2><p class="hint">Use the same email and password on every device to keep your data in sync.</p>' +
+  '<label for="auth-email">Email</label><input id="auth-email" type="email" inputmode="email" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false">' +
+  '<label for="auth-pass">Password</label><input id="auth-pass" type="password" autocomplete="current-password">' +
+  '<p class="auth-msg" id="auth-msg" role="alert"></p>' +
+  '<div class="row"><button type="button" class="btn" id="btn-signup" data-act="signup">Create account</button><button type="button" class="btn primary" id="btn-signin" data-act="signin">Sign in</button></div></form>';
+hooks.doAuth = async kind => {
   if (!fb) return;
   const email = ($('#auth-email') || {}).value || '', pw = ($('#auth-pass') || {}).value || '', msg = $('#auth-msg');
   const b1 = $('#btn-signin'), b2 = $('#btn-signup');
-  if (!email.trim() || pw.length < 6) { if (msg) msg.textContent = 'Email aur kam se kam 6 character ka password daalo.'; return; }
+  if (!email.trim() || pw.length < 6) { if (msg) msg.textContent = 'Enter your email and a password of at least 6 characters.'; return; }
   if (msg) msg.textContent = '';
   if (b1) b1.disabled = true; if (b2) b2.disabled = true;
   try {
     if (kind === 'signup') await fb.authM.createUserWithEmailAndPassword(fb.auth, email.trim(), pw);
     else await fb.authM.signInWithEmailAndPassword(fb.auth, email.trim(), pw);
   } catch (e) {
-    if (msg) msg.textContent = AUTH_MSG[e && e.code] || ('Login fail ho gaya (' + ((e && e.code) || 'unknown') + ').');
+    if (msg) msg.textContent = AUTH_MSG[e && e.code] || ('Sign-in failed (' + ((e && e.code) || 'unknown error') + ').');
     if (b1) b1.disabled = false; if (b2) b2.disabled = false;
   }
-}
+};
+hooks.signOut = () => { if (fb) fb.authM.signOut(fb.auth).catch(() => {}); };
 
 async function initCloud() {
   if (!cfgOk()) { state.auth = 'none'; setMode('local'); return; }
@@ -805,27 +1005,31 @@ async function initCloud() {
     catch (e) { fdb = fsM.getFirestore(app); }
     fb = { authM, fsM, auth, fdb };
     authM.onAuthStateChanged(auth, user => {
-      if (unsubDays) { unsubDays(); unsubDays = null; }
-      cloud = null;
+      unsubs.forEach(u => u()); unsubs = []; cloud = null;
       if (!user) {
-        state.auth = 'out'; state.days = {}; state.composing = null;
-        try { localStorage.removeItem(CACHE_KEY); } catch (e) { /* ignore */ }
+        state.auth = 'out'; state.days = {}; state.cfg = normCfg(null); state.composing = null; state.rwForm = null;
+        try { localStorage.removeItem(CACHE_KEY); localStorage.removeItem(CFG_KEY); } catch (e) { /* ignore */ }
         setMode('loading'); return;
       }
       state.auth = 'in';
-      cloud = { set: (key, payload) => fsM.setDoc(fsM.doc(fdb, 'users', user.uid, 'days', key), payload) };
-      unsubDays = fsM.onSnapshot(fsM.collection(fdb, 'users', user.uid, 'days'), snap => {
-        const m = {};
-        snap.docs.forEach(x => { m[x.id] = clone(x.data()); });
-        Object.keys(state.days).forEach(k => { if (jt[k] || inflight[k]) m[k] = state.days[k]; });
-        state.days = m; cacheLocal(); setMode('cloud');
-      }, err => { console.warn('firestore', err); setMode('local'); });
+      cloud = {
+        setDay: (key, payload) => fsM.setDoc(fsM.doc(fdb, 'users', user.uid, 'days', key), payload),
+        setCfg: payload => fsM.setDoc(fsM.doc(fdb, 'users', user.uid, 'meta', 'config'), payload)
+      };
+      unsubs.push(fsM.onSnapshot(fsM.collection(fdb, 'users', user.uid, 'days'), snap => {
+        const m = {}; snap.docs.forEach(x => { m[x.id] = clone(x.data()); });
+        onDaysSnapshot(m);
+      }, err => { console.warn('firestore days', err); setMode('local'); }));
+      unsubs.push(fsM.onSnapshot(fsM.doc(fdb, 'users', user.uid, 'meta', 'config'), snap => {
+        onCfgSnapshot(snap.exists(), snap.exists() ? clone(snap.data()) : null);
+      }, err => { console.warn('firestore config', err); }));
       render();
     });
   } catch (err) {
     console.warn('firebase init', err); state.auth = 'none'; setMode('local');
   }
 }
+
 
 /* ---------- starfield ---------- */
 const cv = $('#stars'), cx = cv.getContext('2d'), reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -848,16 +1052,23 @@ let lastF = 0;
 function loopStars(t) { if (t - lastF > 45 && !document.hidden) { lastF = t; drawStars(t); } requestAnimationFrame(loopStars); }
 
 /* ---------- start ---------- */
-state.days = loadLocal();
-if (cfgOk()) state.auth = 'wait';
+state.days = loadLocal(CACHE_KEY, {});
+state.cfg = normCfg(loadLocal(CFG_KEY, null));
+if (typeof cfgOk === 'function' && cfgOk()) state.auth = 'wait';
 sizeStars();
 window.addEventListener('resize', sizeStars);
 if (!reduce) requestAnimationFrame(loopStars);
 render();
 initCloud();
-setInterval(applyTimeClasses, 30000);
-document.addEventListener('visibilitychange', () => { if (!document.hidden) applyTimeClasses(); });
+function tick() {
+  applyTimeClasses();
+  const tag = document.activeElement && document.activeElement.tagName;
+  if (timeSig() !== lastSig && !state.composing && !/^(TEXTAREA|INPUT|SELECT)$/.test(tag || '')) render();
+}
+setInterval(tick, 30000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) tick(); });
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) { navigator.serviceWorker.register('sw.js').catch(() => {}); }
+
 })();
 </script>
 </body>
